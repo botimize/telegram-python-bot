@@ -25,7 +25,6 @@ def resp(bot, update):
     request.session_id = update.message.chat_id
     request.query = update.message.text
     response = request.getresponse().read().decode("utf-8")
-    print response
     responseText = json.loads(response)["result"]["fulfillment"]["speech"]
     bot.sendMessage(chat_id=update.message.chat_id, text=responseText)
     # botimize incoming
