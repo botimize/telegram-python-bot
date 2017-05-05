@@ -1,7 +1,7 @@
 import apiai
 import json
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-from botimize import Botimize
+from botimize1 import Botimize
 
 # Declare updater & dispatcher 
 telegram_token = '355205992:AAHYySfOCKFxuNFPr2b_y-JbaxTW7eRCZRQ'
@@ -19,7 +19,7 @@ def start(bot, update):
 def resp(bot, update):
     echo_response = update.message.text
     bot.sendMessage(chat_id=update.message.chat_id, text=echo_response)
-    '''
+    
     # botimize incoming
     incomingLog = {
         'sender': {
@@ -28,23 +28,22 @@ def resp(bot, update):
         },
         'content': {
             'type': 'text', 
-            'text': update.message.text
+            'text':  echo_response
         }
     }
     botimize.log_incoming(incomingLog)
     # botimize outgoing
     outgoingLog = {
-        'sender': {
+        'receiver': {
           'id': update.message.chat_id,
           'name': 'USER_SCREEN_NAME'
         },
         'content': {
             'type': 'text',
-            'text': update.message.text
+            'text': echo_response
         }
     }
-    botimize.log_outgoing(outgoingLog)
-    '''
+    print(botimize.log_outgoing(outgoingLog))
 
 # Structuralize bot (custom functions -> dispatcher)
 start_handler = CommandHandler('start', start)
