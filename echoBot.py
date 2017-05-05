@@ -4,12 +4,12 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from botimize1 import Botimize
 
 # Declare updater & dispatcher 
-telegram_token = '355205992:AAHYySfOCKFxuNFPr2b_y-JbaxTW7eRCZRQ'
+telegram_token = 'Your_Telegram_Api_Key'
 updater = Updater(token=telegram_token)
 dispatcher = updater.dispatcher
 
 # Declare Botimize
-botimize_apiKey = 'I472Y6HIBBE51UMDZFHXI0EATOVQPLH9'
+botimize_apiKey = 'Your_Botimize_Api_Key'
 botimize = Botimize(botimize_apiKey, 'generic')
 
 # Customize function
@@ -24,7 +24,7 @@ def resp(bot, update):
     incomingLog = {
         'sender': {
           'id': update.message.chat_id,
-          'name': 'USER_SCREEN_NAME'
+          'name': 'unkown_user'
         },
         'content': {
             'type': 'text', 
