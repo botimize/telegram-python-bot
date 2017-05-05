@@ -4,8 +4,8 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from botimize1 import Botimize
 
 # Declare updater & dispatcher 
-telegram_token = 'Your_Telegram_Api_Key'
-updater = Updater(token=telegram_token)
+telegram_bot_token = 'Your_Telegram_Token'
+updater = Updater(token=telegram_bot_token)
 dispatcher = updater.dispatcher
 
 # Declare Botimize
