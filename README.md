@@ -53,7 +53,6 @@ Create a python script (e.g. echoBot.py) and copy this into it.
 Notice your have to replace **Your_Telegram_Token** and **Your_Botimize_Api_Key**.
 
 ```
-import apiai
 import json
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from botimize1 import Botimize
@@ -116,5 +115,6 @@ Run on the terminal
 ```
 python echoBot.py
 ```
-Now you can talk to your bot! (I name the bot as okokdodo you can find your bot with the bot-name)
+Now you can talk to your bot!
+I name the bot as okokdodo you can find your bot with the bot name.
 ![okokdodo](/demo/okokdodo.png)
