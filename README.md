@@ -26,6 +26,14 @@ Install the package by running
 pip install -r requirements.txt
 ```
 
+## Create a telegram bot and get its token with the aid of botfather
+
+Find botfather by ...
+![Botfather](demo/botFather.png)
+Talk to him like this way and record your telegram token.
+![teleToken](demo/teleToken.png)
+
+
 ## Create a botimize account and a key for the project
 
 Go to [botimize](https://dashboard.botimize.io/register) and create an account.
@@ -108,4 +116,5 @@ Run on the terminal
 ```
 python echoBot.py
 ```
-Now you can talk to your bot!
+Now you can talk to your bot! (I name the bot as okokdodo you can find your bot with the bot-name)
+![okokdodo](/demo/okokdodo.png)
