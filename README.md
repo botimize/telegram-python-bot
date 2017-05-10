@@ -1,8 +1,111 @@
-# Setup
+# Create your Telegram bot in python with botimize bot-analytics service
+
+Here is our 10 min guide to create an echo-bot on telegram with [botimize](http://www.botimize.io) **bot analytic** service.
+
+## Set up the dependency
+
+Create a requirements.txt and copy this into it.
+```
+apiai==1.2.3
+appdirs==1.4.3
+botimize==1.1
+certifi==2017.4.17
+future==0.16.0
+gunicorn==19.7.1
+numpy==1.12.1
+packaging==16.8
+pyparsing==2.2.0
+python-telegram-bot==5.3.0
+requests==2.13.0
+six==1.10.0
+urllib3==1.20
+```
+
+Install the package by running
 ```
 pip install -r requirements.txt
 ```
-# Run 
+
+## Create a botimize account and a key for the project
+
+Go to [botimize](https://dashboard.botimize.io/register) and create an account.
+
+Create a new project by clicking new project.
+
+![New_project](/demo/botimize_new_project.png)
+
+See your **Your_Botimize_Api_Key** by clicking Project Setting
+
+![Project Setting](demo/botimize_apiKey.png)
+
+## Create a python bot
+
+Create a python script (e.g. echoBot.py) and copy this into it. 
+
+Notice your have to replace **Your_Telegram_Token** and **Your_Botimize_Api_Key**.
+
+```
+import apiai
+import json
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from botimize1 import Botimize
+
+# Declare updater & dispatcher 
+telegram_bot_token = 'Your_Telegram_Token'
+updater = Updater(token=telegram_bot_token)
+dispatcher = updater.dispatcher
+
+# Declare Botimize
+botimize_apiKey = 'Your_Botimize_Api_Key'
+botimize = Botimize(botimize_apiKey, 'generic')
+
+# Customize function
+def start(bot, update):
+    bot.sendMessage(chat_id=update.message.chat_id, text="I'm a bot, please talk to me!")
+
+def resp(bot, update):
+    echo_response = update.message.text
+    bot.sendMessage(chat_id=update.message.chat_id, text=echo_response)
+    
+    # botimize incoming
+    incomingLog = {
+        'sender': {
+          'id': update.message.chat_id,
+          'name': 'unkown_user'
+        },
+        'content': {
+            'type': 'text', 
+            'text':  echo_response
+        }
+    }
+    botimize.log_incoming(incomingLog)
+    # botimize outgoing
+    outgoingLog = {
+        'receiver': {
+          'id': update.message.chat_id,
+          'name': 'USER_SCREEN_NAME'
+        },
+        'content': {
+            'type': 'text',
+            'text': echo_response
+        }
+    }
+    print(botimize.log_outgoing(outgoingLog))
+
+# Structuralize bot (custom functions -> dispatcher)
+start_handler = CommandHandler('start', start)
+echo_handler = MessageHandler(Filters.text, resp)
+dispatcher.add_handler(start_handler)
+dispatcher.add_handler(echo_handler)
+
+# Update to telegram platfrom
+updater.start_polling()
+updater.idle()
+```
+
+## Talk to your bot
+Run on the terminal
 ```
 python echoBot.py
 ```
+Now you can talk to your bot!
