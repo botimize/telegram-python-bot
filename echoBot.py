@@ -1,7 +1,7 @@
 import apiai
 import json
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-from botimize1 import Botimize
+from botimize import Botimize
 
 # Declare updater & dispatcher 
 telegram_bot_token = 'Your_Telegram_Token'
