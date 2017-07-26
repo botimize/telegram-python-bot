@@ -1,4 +1,3 @@
-import apiai
 import json
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from botimize import Botimize
@@ -10,9 +9,7 @@ dispatcher = updater.dispatcher
 
 # Declare Botimize
 botimize_apiKey = 'Your_Botimize_Api_Key'
-botimize = Botimize(botimize_apiKey, 'telegram', {
-    'apiUrl': 'https://api.getbotimize.com',
-})
+botimize = Botimize(botimize_apiKey, 'telegram')
 
 # Customize function
 def start(bot, update):
