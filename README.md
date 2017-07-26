@@ -6,7 +6,6 @@ Here is our 10 min guide to create an echo-bot on telegram with [botimize](http:
 
 Create a requirements.txt and copy this into it.
 ```
-apiai==1.2.3
 appdirs==1.4.3
 botimize==1.1
 certifi==2017.4.17
@@ -52,10 +51,11 @@ Create a python script (e.g. echoBot.py) and copy this into it.
 
 Notice your have to replace **Your_Telegram_Token** and **Your_Botimize_Api_Key**.
 
-```
+```py
+import apiai
 import json
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-from botimize1 import Botimize
+from botimize import Botimize
 
 # Declare updater & dispatcher 
 telegram_bot_token = 'Your_Telegram_Token'
@@ -64,7 +64,9 @@ dispatcher = updater.dispatcher
 
 # Declare Botimize
 botimize_apiKey = 'Your_Botimize_Api_Key'
-botimize = Botimize(botimize_apiKey, 'generic')
+botimize = Botimize(botimize_apiKey, 'telegram', {
+    'apiUrl': 'https://api.getbotimize.com',
+})
 
 # Customize function
 def start(bot, update):
@@ -72,32 +74,16 @@ def start(bot, update):
 
 def resp(bot, update):
     echo_response = update.message.text
-    bot.sendMessage(chat_id=update.message.chat_id, text=echo_response)
-    
+    bot.sendMessage(chat_id=update.message.chat.id, text=echo_response)
     # botimize incoming
-    incomingLog = {
-        'sender': {
-          'id': update.message.chat_id,
-          'name': 'unkown_user'
-        },
-        'content': {
-            'type': 'text', 
-            'text':  echo_response
-        }
-    }
-    botimize.log_incoming(incomingLog)
+    botimize.log_incoming(update.to_dict())
     # botimize outgoing
     outgoingLog = {
-        'receiver': {
-          'id': update.message.chat_id,
-          'name': 'USER_SCREEN_NAME'
-        },
-        'content': {
-            'type': 'text',
-            'text': echo_response
-        }
+        'token': telegram_bot_token,
+        'chat_id': update.message.chat.id,
+        'text': echo_response
     }
-    print(botimize.log_outgoing(outgoingLog))
+    botimize.log_outgoing(outgoingLog)
 
 # Structuralize bot (custom functions -> dispatcher)
 start_handler = CommandHandler('start', start)
